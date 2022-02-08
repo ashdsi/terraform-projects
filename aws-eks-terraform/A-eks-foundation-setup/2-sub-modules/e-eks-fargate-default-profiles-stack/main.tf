@@ -50,6 +50,27 @@ resource "aws_eks_fargate_profile" "coredns" {
 }
 #--------------------------------------------------------------#
 
+# Create a EKS Fargate Profile for "game-2048" namespace to deploy sample application #
+resource "aws_eks_fargate_profile" "sample-app" {
+  cluster_name           = var.eksClusterName
+  fargate_profile_name   = "fp-sample-app"
+  pod_execution_role_arn = var.fargatePodExecRoleArn
+  subnet_ids             = [data.aws_subnet.prisubnet1.id,data.aws_subnet.prisubnet2.id]
+
+  selector {
+    namespace = "game-2048"
+  }
+  
+  tags = merge(var.resourceTags,{
+    "kubernetes.io/cluster/${var.eksClusterName}" = "shared"
+    "Product" = "AWS-Compute"
+    "Service" = "EKS-Fargate-Profile"
+    }
+  )
+
+}
+#--------------------------------------------------------------#
+
 #--------------------------------------------------------------#
 # Create a EKS Fargate Profile for "cert-manager namespace #
 # resource "aws_eks_fargate_profile" "cert_manager_profile" {

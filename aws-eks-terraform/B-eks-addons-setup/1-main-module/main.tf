@@ -1,11 +1,11 @@
 # ========================================================================================================================== #
 
 #--------------------------------------------------------------#
-# Render the template with a substituted value for EKS Cluster Name
-/* resource "local_file" "parent_kubeconfig_file" {
-    content   = data.template_file.kubeconfig.rendered
-    filename  = "${path.module}/eks-cluster-config.yaml"
-} */
+#Render the template with a substituted value for EKS Cluster Name
+# resource "local_file" "parent_kubeconfig_file" {
+#     content   = data.template_file.kubeconfig.rendered
+#     filename  = "${path.module}/eks-cluster-config.yaml"
+# } 
 #--------------------------------------------------------------#
 
 #--------------------------------------------------------------#
@@ -29,20 +29,21 @@ module "eks-coredns-setup" {
 #--------------------------------------------------------------#
 /* Append the "Cert-Manager" & "AWS LB Controller" application setup
 against the EKS Foundation Cluster */
-# module "eks-alb-controller-setup" {
-#     source                          = "../2-sub-modules/b-alb-controller-stack"
+module "eks-alb-controller-setup" {
+    source                          = "../2-sub-modules/b-alb-controller-stack"
 
-#     /* providers = {
-#       kubernetes  = kubernetes.eks-foundation-cluster
-#       helm        = helm.public-chart-museum-eks-foundation-cluster
-#     } */
+    /* providers = {
+      kubernetes  = kubernetes.eks-foundation-cluster
+      helm        = helm.public-chart-museum-eks-foundation-cluster
+    } */
 
-#     deploymentPrefix                = local.envPrefixName
-#     deployedRegion                  = var.region
-#     eksClusterName                  = var.EKSFoundationClusterName
-#     resourceTags                    = local.commonTags
-# }
+    deploymentPrefix                = local.envPrefixName
+    deployedRegion                  = var.region
+    eksClusterName                  = var.EKSFoundationClusterName
+    resourceTags                    = local.commonTags
+}
 #--------------------------------------------------------------#
+
 
 #--------------------------------------------------------------#
 /* Create the Metrics-server setup against the EKS Foundation Cluster

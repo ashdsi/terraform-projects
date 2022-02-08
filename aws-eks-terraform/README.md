@@ -1,5 +1,12 @@
 # aws-eks-terraform
 
+# Prerequisites
+
+Set the AWS provider region in providers.tf
+Set the variable values in dev-foundation.tfvars
+Set the variable values in dev-supplementary.tfvars
+Local machine should have terraform and kubectl installed. AWS CLI should be installed and configured with user credential
+
 This project houses the IaC related toolset used for the creation of the EKS on Fargate
 
 # General Overview on the EKS Cluster components:
